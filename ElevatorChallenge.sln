@@ -11,14 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorChallenge.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorChallenge.Application.Tests", "ElevatorChallenge.Application.Tests\ElevatorChallenge.Application.Tests.csproj", "{2BF1F906-AB41-4A4E-8DFF-0761014FA893}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorChallenge.Infrastructure", "ElevatorChallenge.Infrastructure\ElevatorChallenge.Infrastructure.csproj", "{29FA06E2-E295-417F-96A5-8CA59931F078}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorChallenge.Infrastructure", "ElevatorChallenge.Infrastructure\ElevatorChallenge.Infrastructure.csproj", "{29FA06E2-E295-417F-96A5-8CA59931F078}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorChallenge.Commandline", "ElevatorChallenge.Commandline\ElevatorChallenge.Commandline.csproj", "{6D7A7314-F288-4EDA-8BEC-1819ACF73EE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorChallenge.Commandline", "ElevatorChallenge.Commandline\ElevatorChallenge.Commandline.csproj", "{6D7A7314-F288-4EDA-8BEC-1819ACF73EE9}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FC9F4392-282B-4E69-B88C-A44784B301EA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA28D2DF-4FB2-49FE-80D0-03ADFA88FA0E}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		README.md = README.md
 	EndProjectSection
 EndProject
