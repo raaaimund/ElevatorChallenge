@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ElevatorChallenge.Commandline": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

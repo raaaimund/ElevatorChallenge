@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  elevatorchallenge.commandline:
+    image: ${DOCKER_REGISTRY-}elevatorchallengecommandline
+    build:
+      context: .
+      dockerfile: ElevatorChallenge.Commandline/Dockerfile
