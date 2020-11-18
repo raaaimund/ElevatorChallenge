@@ -1,0 +1,5 @@
+name: "Build and test net5"
+description: "Build and test net5 with docker"
+runs:
+  using: "docker"
+  image: "Dockerfile"

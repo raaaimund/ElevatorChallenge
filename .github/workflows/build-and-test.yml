@@ -13,13 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.0
-    - name: Install dependencies
-      run: dotnet restore ElevatorChallenge.sln
-    - name: Build
-      run: dotnet build ElevatorChallenge.sln --configuration Release --no-restore
-    - name: Test
-      run: dotnet test ElevatorChallenge.sln --no-restore --verbosity normal
+    - name: Build and test
+      uses: ./.github/actions/deploy-with-sftp-javascript
+      
