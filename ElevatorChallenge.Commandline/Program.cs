@@ -21,13 +21,14 @@ namespace ElevatorChallenge.Commandline
 
             try
             {
-                await BuildCommandlineHost().RunConsoleAsync(_cancellationTokenSource.Token);
+                await BuildCommandlineHost(args)
+                    .RunConsoleAsync(_cancellationTokenSource.Token);
             }
             catch (AggregateException aggregatedExceptions)
             {
                 aggregatedExceptions.Handle((ex) =>
                 {
-                    if(ex is OperationCanceledException)
+                    if (ex is OperationCanceledException)
                     {
                         Console.WriteLine("Cancelled ... bye.");
                         return true;
@@ -38,12 +39,8 @@ namespace ElevatorChallenge.Commandline
             }
         }
 
-        private static IHostBuilder BuildCommandlineHost() =>
-            new HostBuilder()
-                .ConfigureLogging(logging =>
-                {
-                    logging.AddConsole();
-                })
+        private static IHostBuilder BuildCommandlineHost(string[] args) =>
+            Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddScoped<ILogMovementService, NetCoreLogMovementService>();
