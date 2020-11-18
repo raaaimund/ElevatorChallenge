@@ -4,6 +4,7 @@ using ElevatorChallenge.Infrastructure.Extensions;
 using ElevatorChallenge.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,9 +40,13 @@ namespace ElevatorChallenge.Commandline
 
         private static IHostBuilder BuildCommandlineHost() =>
             new HostBuilder()
+                .ConfigureLogging(logging =>
+                {
+                    logging.AddConsole();
+                })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddScoped<ILoggerService, ConsoleLoggerService>();
+                    services.AddScoped<ILogMovementService, NetCoreLogMovementService>();
                     services.AddScoped<IWaiterService, WaiterService>();
                     services.AddElevatorMoverFactory();
                     services.AddSingleton<ElevatorSystem, ElevatorSystemWithTestData>();

@@ -11,10 +11,10 @@ namespace ElevatorChallenge.Application
     {
         private readonly Elevator _elevator;
         private readonly ChannelReader<ElevatorRequest> _requestReader;
-        private readonly ILoggerService _logger;
+        private readonly ILogMovementService _logger;
         private readonly IWaiterService _waiterService;
 
-        public ElevatorMover(Elevator elevator, ChannelReader<ElevatorRequest> requestReader, ILoggerService logger, IWaiterService waiterService)
+        public ElevatorMover(Elevator elevator, ChannelReader<ElevatorRequest> requestReader, ILogMovementService logger, IWaiterService waiterService)
         {
             _elevator = elevator;
             _requestReader = requestReader;
@@ -48,7 +48,7 @@ namespace ElevatorChallenge.Application
             for (int currentFloor = request.FromFloor; currentFloor <= request.ToFloor; currentFloor++)
             {
                 SetElevatorCurrentFloorTo(currentFloor);
-                _logger.PrintCurrentMovement(_elevator, request);
+                _logger.LogMovement(_elevator, request);
                 await _waiterService.WaitForSecondsAsync(1, cancellationToken);
             }
         }
@@ -58,7 +58,7 @@ namespace ElevatorChallenge.Application
             for (int currentFloor = request.FromFloor; currentFloor >= request.ToFloor; currentFloor--)
             {
                 SetElevatorCurrentFloorTo(currentFloor);
-                _logger.PrintCurrentMovement(_elevator, request);
+                _logger.LogMovement(_elevator, request);
                 await _waiterService.WaitForSecondsAsync(1, cancellationToken);
             }
         }
