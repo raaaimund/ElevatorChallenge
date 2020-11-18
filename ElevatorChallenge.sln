@@ -23,6 +23,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{FB38E1F1-574C-41C4-9AFC-1780A69DE917}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{5CDF765E-8A0D-42B4-9371-AB81397FF487}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-and-test.yml = .github\workflows\build-and-test.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "actions", "actions", "{A97EBB93-76C4-479B-8BFD-EDDE748F9759}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build-and-test-net5", "build-and-test-net5", "{EE88C399-E549-49BF-BCA9-CF28135FC011}"
+	ProjectSection(SolutionItems) = preProject
+		.github\actions\build-and-test-net5\action.yml = .github\actions\build-and-test-net5\action.yml
+		.github\actions\build-and-test-net5\Dockerfile = .github\actions\build-and-test-net5\Dockerfile
+		.github\actions\build-and-test-net5\entrypoint.sh = .github\actions\build-and-test-net5\entrypoint.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +76,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB38E1F1-574C-41C4-9AFC-1780A69DE917} = {BA28D2DF-4FB2-49FE-80D0-03ADFA88FA0E}
+		{5CDF765E-8A0D-42B4-9371-AB81397FF487} = {FB38E1F1-574C-41C4-9AFC-1780A69DE917}
+		{A97EBB93-76C4-479B-8BFD-EDDE748F9759} = {FB38E1F1-574C-41C4-9AFC-1780A69DE917}
+		{EE88C399-E549-49BF-BCA9-CF28135FC011} = {A97EBB93-76C4-479B-8BFD-EDDE748F9759}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1AB07794-A04E-46CC-BB69-6B2EDB4B9786}
