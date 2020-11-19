@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build-and-test-net5", "buil
 		.github\actions\build-and-test-net5\entrypoint.sh = .github\actions\build-and-test-net5\entrypoint.sh
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorChallenge.Infrastructure.Tests", "ElevatorChallenge.Infrastructure.Tests\ElevatorChallenge.Infrastructure.Tests.csproj", "{2D49C54C-DF42-437A-9373-7F5917C2202D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{FC9F4392-282B-4E69-B88C-A44784B301EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC9F4392-282B-4E69-B88C-A44784B301EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC9F4392-282B-4E69-B88C-A44784B301EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D49C54C-DF42-437A-9373-7F5917C2202D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D49C54C-DF42-437A-9373-7F5917C2202D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D49C54C-DF42-437A-9373-7F5917C2202D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D49C54C-DF42-437A-9373-7F5917C2202D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
