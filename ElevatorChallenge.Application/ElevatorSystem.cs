@@ -12,30 +12,30 @@ namespace ElevatorChallenge.Application
 {
     public class ElevatorSystem : IDisposable
     {
-        private readonly Channel<ElevatorRequest> _requestChannel;
         private readonly ICollection<Task> _workers;
         private readonly ICollection<ElevatorMover> _elevatorMovers;
         private readonly ICollection<ElevatorRequest> _requests;
         private readonly IElevatorMoverFactory _elevatorMoverFactory;
         private readonly IWaiterService _waiterService;
+        private readonly IRequestQueue<ElevatorRequest> _requestChannel;
 
-        public ElevatorSystem(IElevatorMoverFactory elevatorMoverFactory, IWaiterService waiterService)
+        public ElevatorSystem(IElevatorMoverFactory elevatorMoverFactory, IWaiterService waiterService, IRequestQueue<ElevatorRequest> requestChannel)
         {
-            _requestChannel = Channel.CreateUnbounded<ElevatorRequest>();
             _workers = new List<Task>();
             _elevatorMovers = new List<ElevatorMover>();
             _requests = new List<ElevatorRequest>();
             _elevatorMoverFactory = elevatorMoverFactory;
             _waiterService = waiterService;
+            _requestChannel = requestChannel;
         }
 
         public void AddRequest(ElevatorRequest request) =>
             _requests.Add(request);
 
         public void AddElevator(Elevator elevator) =>
-            _elevatorMovers.Add(_elevatorMoverFactory.Create(elevator, _requestChannel));
+            _elevatorMovers.Add(_elevatorMoverFactory.Create(elevator));
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken = default)
         {
             _workers.Add(WriteRequestsToChannelAsync(cancellationToken));
 
@@ -53,12 +53,12 @@ namespace ElevatorChallenge.Application
         private async Task WriteRequestsToChannelAsync(CancellationToken cancellationToken)
         {
             foreach (var request in _requests)
-                await _requestChannel.Writer.WriteAsync(request, cancellationToken);
+                await _requestChannel.WriteAsync(request, cancellationToken);
         }
 
         public void Dispose()
         {
-            _requestChannel.Writer.Complete();
+            _requestChannel.Complete();
         }
     }
 }
