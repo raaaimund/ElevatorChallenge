@@ -7,6 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ElevatorChallenge.Application.Factories;
+using ElevatorChallenge.Domain.Entities;
 using ElevatorChallenge.Infrastructure.Factories;
 
 namespace ElevatorChallenge.Commandline
@@ -46,6 +47,7 @@ namespace ElevatorChallenge.Commandline
                     services.AddScoped<ILogMovementService, NetCoreLogMovementService>();
                     services.AddScoped<IWaiterService, WaiterService>();
                     services.AddScoped<IElevatorMoverFactory, ElevatorMoverFactory>();
+                    services.AddSingleton<IRequestQueue<ElevatorRequest>, ElevatorRequestQueueUsingChannel>();
                     services.AddSingleton<ElevatorSystem, ElevatorSystemWithTestData>();
                     services.AddHostedService<ElevatorSystemHostedService>();
                 });

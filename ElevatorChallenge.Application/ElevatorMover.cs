@@ -25,7 +25,7 @@ namespace ElevatorChallenge.Application
             _requestReader = requestReader;
         }
 
-        public async Task CollectAndHandleRequestsAsync(CancellationToken cancellationToken)
+        public async Task CollectAndHandleRequestsAsync(CancellationToken cancellationToken = default)
         {
             await foreach (var request in _requestReader.ReadAllAsync(cancellationToken))
             {
@@ -41,14 +41,14 @@ namespace ElevatorChallenge.Application
             await _requestReader.Completion;
         }
 
-        private Task MoveToFloorAsync(ElevatorRequest request, CancellationToken cancellationToken) =>
+        public Task MoveToFloorAsync(ElevatorRequest request, CancellationToken cancellationToken = default) =>
             request.Direction == Direction.Up
                 ? MoveUpAsync(request, cancellationToken)
                 : MoveDownAsync(request, cancellationToken);
 
-        private async Task MoveUpAsync(ElevatorRequest request, CancellationToken cancellationToken)
+        public async Task MoveUpAsync(ElevatorRequest request, CancellationToken cancellationToken = default)
         {
-            for (int currentFloor = request.FromFloor; currentFloor <= request.ToFloor; currentFloor++)
+            for (var currentFloor = request.FromFloor; currentFloor <= request.ToFloor; currentFloor++)
             {
                 SetElevatorCurrentFloorTo(currentFloor);
                 _logger.LogMovement(_elevator, request);
@@ -56,9 +56,9 @@ namespace ElevatorChallenge.Application
             }
         }
 
-        private async Task MoveDownAsync(ElevatorRequest request, CancellationToken cancellationToken)
+        public async Task MoveDownAsync(ElevatorRequest request, CancellationToken cancellationToken = default)
         {
-            for (int currentFloor = request.FromFloor; currentFloor >= request.ToFloor; currentFloor--)
+            for (var currentFloor = request.FromFloor; currentFloor >= request.ToFloor; currentFloor--)
             {
                 SetElevatorCurrentFloorTo(currentFloor);
                 _logger.LogMovement(_elevator, request);

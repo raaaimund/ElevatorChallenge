@@ -1,7 +1,6 @@
 ﻿using ElevatorChallenge.Domain.Entities;
 using ElevatorChallenge.Domain.Enums;
 using ElevatorChallenge.Infrastructure.Services;
-using System;
 
 namespace ElevatorChallenge.Infrastructure.Tests.Services.Fakes
 {
