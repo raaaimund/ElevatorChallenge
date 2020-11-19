@@ -7,7 +7,10 @@ namespace ElevatorChallenge.Infrastructure.Services
 {
     public class WaiterService : IWaiterService
     {
-        public Task WaitForSecondsAsync(int seconds, CancellationToken cancellationToken) =>
+        public Task WaitForSecondsAsync(int seconds, CancellationToken cancellationToken = default) =>
             Task.Delay(TimeSpan.FromSeconds(seconds), cancellationToken);
+
+        public Task WaitUntilCanceled(CancellationToken cancellationToken = default) =>
+            Task.Delay(Timeout.Infinite, cancellationToken);
     }
 }
