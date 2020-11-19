@@ -14,7 +14,12 @@ namespace ElevatorChallenge.Application
         private readonly ILogMovementService _logger;
         private readonly IWaiterService _waiterService;
 
-        public ElevatorMover(Elevator elevator, ChannelReader<ElevatorRequest> requestReader, ILogMovementService logger, IWaiterService waiterService)
+        public ElevatorMover(
+            Elevator elevator, 
+            ChannelReader<ElevatorRequest> requestReader, 
+            ILogMovementService logger, 
+            IWaiterService waiterService
+        )
         {
             _elevator = elevator;
             _requestReader = requestReader;

@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ElevatorChallenge.Application\ElevatorChallenge.Application.csproj" />
+    <ProjectReference Include="..\ElevatorChallenge.Infrastructure\ElevatorChallenge.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

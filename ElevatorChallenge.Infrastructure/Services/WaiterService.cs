@@ -9,5 +9,8 @@ namespace ElevatorChallenge.Infrastructure.Services
     {
         public Task WaitForSecondsAsync(int seconds, CancellationToken cancellationToken) =>
             Task.Delay(TimeSpan.FromSeconds(seconds), cancellationToken);
+
+        public Task WaitUntilCanceled(CancellationToken cancellationToken) =>
+            Task.Delay(Timeout.Infinite, cancellationToken);
     }
 }
