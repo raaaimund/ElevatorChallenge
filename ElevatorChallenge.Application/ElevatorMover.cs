@@ -8,37 +8,19 @@ namespace ElevatorChallenge.Application
 {
     public class ElevatorMover
     {
-        private readonly Elevator _elevator;
         private readonly ILogMovementService _logger;
         private readonly IWaiterService _waiterService;
-        private readonly IRequestQueue<ElevatorRequest> _requestReader;
+
+        public Elevator Elevator { get; }
 
         public ElevatorMover(
             Elevator elevator,
             ILogMovementService logger,
-            IWaiterService waiterService,
-            IRequestQueue<ElevatorRequest> requestReader)
+            IWaiterService waiterService)
         {
-            _elevator = elevator;
+            Elevator = elevator;
             _logger = logger;
             _waiterService = waiterService;
-            _requestReader = requestReader;
-        }
-
-        public async Task CollectAndHandleRequestsAsync(CancellationToken cancellationToken = default)
-        {
-            await foreach (var request in _requestReader.ReadAllAsync(cancellationToken))
-            {
-                if (HasToMoveToAnotherFloorToPickUpPassengerFor(request))
-                    await MoveToFloorAsync(
-                        CreateRequestForMovingToFloor(_elevator.CurrentFloor, request.FromFloor),
-                        cancellationToken
-                    );
-
-                await MoveToFloorAsync(request, cancellationToken);
-            }
-
-            await _requestReader.Completion;
         }
 
         public Task MoveToFloorAsync(ElevatorRequest request, CancellationToken cancellationToken = default) =>
@@ -51,7 +33,7 @@ namespace ElevatorChallenge.Application
             for (var currentFloor = request.FromFloor; currentFloor <= request.ToFloor; currentFloor++)
             {
                 SetElevatorCurrentFloorTo(currentFloor);
-                _logger.LogMovement(_elevator, request);
+                _logger.LogMovement(Elevator, request);
                 await _waiterService.WaitForSecondsAsync(1, cancellationToken);
             }
         }
@@ -61,18 +43,18 @@ namespace ElevatorChallenge.Application
             for (var currentFloor = request.FromFloor; currentFloor >= request.ToFloor; currentFloor--)
             {
                 SetElevatorCurrentFloorTo(currentFloor);
-                _logger.LogMovement(_elevator, request);
+                _logger.LogMovement(Elevator, request);
                 await _waiterService.WaitForSecondsAsync(1, cancellationToken);
             }
         }
 
         private void SetElevatorCurrentFloorTo(int floor) =>
-            _elevator.CurrentFloor = floor;
+            Elevator.CurrentFloor = floor;
 
-        private bool HasToMoveToAnotherFloorToPickUpPassengerFor(ElevatorRequest request) =>
-            _elevator.CurrentFloor != request.FromFloor;
+        public bool HasToMoveToAnotherFloorToPickUpPassengerFor(ElevatorRequest request) =>
+            Elevator.CurrentFloor != request.FromFloor;
 
-        private ElevatorRequest CreateRequestForMovingToFloor(int fromFloor, int toFloor) =>
-            new ElevatorRequest() { FromFloor = fromFloor, ToFloor = toFloor };
+        public ElevatorRequest CreateRequestForMovingToFloor(int fromFloor, int toFloor) =>
+            new ElevatorRequest { FromFloor = fromFloor, ToFloor = toFloor };
     }
 }

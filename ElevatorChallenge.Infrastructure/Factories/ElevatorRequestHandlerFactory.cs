@@ -5,15 +5,15 @@ using ElevatorChallenge.Domain.Entities;
 
 namespace ElevatorChallenge.Infrastructure.Factories
 {
-    public class ElevatorMoverFactory : IElevatorMoverFactory
+    public class ElevatorRequestHandlerFactory : IElevatorRequestHandlerFactory
     {
         private readonly ILogMovementService _logger;
         private readonly IWaiterService _waiterService;
         private readonly IRequestQueue<ElevatorRequest> _requestQueue;
 
-        public ElevatorMoverFactory(
-            ILogMovementService logger, 
-            IWaiterService waiterService, 
+        public ElevatorRequestHandlerFactory(
+            ILogMovementService logger,
+            IWaiterService waiterService,
             IRequestQueue<ElevatorRequest> requestQueue
         )
         {
@@ -22,7 +22,11 @@ namespace ElevatorChallenge.Infrastructure.Factories
             _requestQueue = requestQueue;
         }
 
-        public ElevatorMover Create(Elevator elevator) =>
-            new ElevatorMover(elevator, _logger, _waiterService, _requestQueue);
+        public ElevatorRequestHandler Create(Elevator elevator)
+        {
+            var elevatorMover = new ElevatorMover(elevator, _logger, _waiterService);
+            var elevatorRequestHandler = new ElevatorRequestHandler(_requestQueue, elevatorMover);
+            return elevatorRequestHandler;
+        }
     }
 }

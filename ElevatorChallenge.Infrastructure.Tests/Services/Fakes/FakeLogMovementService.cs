@@ -4,7 +4,7 @@ using ElevatorChallenge.Infrastructure.Services;
 
 namespace ElevatorChallenge.Infrastructure.Tests.Services.Fakes
 {
-    public class FakeLogMovementService : BaseLogMovementService
+    public sealed class FakeLogMovementService : BaseLogMovementService
     {
         public override void LogMovement(Elevator elevator, ElevatorRequest request)
         {

@@ -23,14 +23,14 @@ namespace ElevatorChallenge.Infrastructure.Tests.Services
        new List<object[]>
        {
             new object[] {
-                new Elevator() { Name = "Elevator 1", CurrentFloor = 0 },
-                new ElevatorRequest() { FromFloor = 0, ToFloor = 5 },
-                $"Elevator 1: ↑ Current: 0 [Request: from 0 -> to 5]"
+                new Elevator { Name = "Elevator 1", CurrentFloor = 0 },
+                new ElevatorRequest { FromFloor = 0, ToFloor = 5 },
+                "Elevator 1: ↑ Current: 0 [Request: from 0 -> to 5]"
             },
             new object[] {
-                new Elevator() { Name = "Elevator 2", CurrentFloor = 0 },
-                new ElevatorRequest() { FromFloor = 5, ToFloor = 0 },
-                $"Elevator 2: ↓ Current: 0 [Request: from 5 -> to 0]"
+                new Elevator { Name = "Elevator 2", CurrentFloor = 0 },
+                new ElevatorRequest { FromFloor = 5, ToFloor = 0 },
+                "Elevator 2: ↓ Current: 0 [Request: from 5 -> to 0]"
             },
        };
 

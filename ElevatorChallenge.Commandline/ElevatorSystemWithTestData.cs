@@ -8,10 +8,10 @@ namespace ElevatorChallenge.Commandline
     public class ElevatorSystemWithTestData : ElevatorSystem
     {
         public ElevatorSystemWithTestData(
-            IElevatorMoverFactory elevatorMoverFactory, 
+            IElevatorRequestHandlerFactory requestHandlerFactory, 
             IWaiterService waiterService, 
-            IRequestQueue<ElevatorRequest> requestChannel
-        ) : base(elevatorMoverFactory, waiterService, requestChannel)
+            IRequestQueue<ElevatorRequest> queue
+        ) : base(requestHandlerFactory, waiterService, queue)
         {
             AddElevator(new Elevator { Name = "Aufzug 1" });
             AddElevator(new Elevator { Name = "Aufzug 2" });

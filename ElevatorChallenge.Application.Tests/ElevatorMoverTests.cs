@@ -31,8 +31,8 @@ namespace ElevatorChallenge.Application.Tests
         [Fact]
         public async Task MoveDownAsyncShouldMoveElevatorDownwards()
         {
-            var request = new ElevatorRequest() { FromFloor = 5, ToFloor = 0 };
-            var elevator = new Elevator()
+            var request = new ElevatorRequest { FromFloor = 5, ToFloor = 0 };
+            var elevator = new Elevator
             {
                 CurrentFloor = 5,
                 Name = nameof(MoveDownAsyncShouldMoveElevatorDownwards)
@@ -40,8 +40,7 @@ namespace ElevatorChallenge.Application.Tests
             var elevatorMover = new ElevatorMover(
                 elevator,
                 _movementLogger.Object,
-                _waiterService.Object,
-                null
+                _waiterService.Object
             );
 
             await elevatorMover.MoveDownAsync(request);
@@ -53,8 +52,8 @@ namespace ElevatorChallenge.Application.Tests
         public async Task MoveDownAsyncShouldAbortIfCanceled()
         {
             var cts = new CancellationTokenSource();
-            var request = new ElevatorRequest() { FromFloor = 5, ToFloor = 0 };
-            var elevator = new Elevator()
+            var request = new ElevatorRequest { FromFloor = 5, ToFloor = 0 };
+            var elevator = new Elevator
             {
                 CurrentFloor = 5,
                 Name = nameof(MoveDownAsyncShouldMoveElevatorDownwards)
@@ -62,8 +61,7 @@ namespace ElevatorChallenge.Application.Tests
             var elevatorMover = new ElevatorMover(
                 elevator,
                 _movementLogger.Object,
-                new WaiterService(),
-                null
+                new WaiterService()
             );
 
             cts.Cancel();
@@ -75,8 +73,8 @@ namespace ElevatorChallenge.Application.Tests
         [Fact]
         public async Task MoveUpAsyncShouldMoveElevatorUpwards()
         {
-            var request = new ElevatorRequest() { FromFloor = 0, ToFloor = 5 };
-            var elevator = new Elevator()
+            var request = new ElevatorRequest { FromFloor = 0, ToFloor = 5 };
+            var elevator = new Elevator
             {
                 CurrentFloor = 0,
                 Name = nameof(MoveDownAsyncShouldMoveElevatorDownwards)
@@ -84,8 +82,7 @@ namespace ElevatorChallenge.Application.Tests
             var elevatorMover = new ElevatorMover(
                 elevator,
                 _movementLogger.Object,
-                _waiterService.Object,
-                null
+                _waiterService.Object
             );
 
             await elevatorMover.MoveUpAsync(request);
@@ -97,8 +94,8 @@ namespace ElevatorChallenge.Application.Tests
         public async Task MoveUpAsyncShouldAbortIfCanceled()
         {
             var cts = new CancellationTokenSource();
-            var request = new ElevatorRequest() { FromFloor = 0, ToFloor = 5 };
-            var elevator = new Elevator()
+            var request = new ElevatorRequest { FromFloor = 0, ToFloor = 5 };
+            var elevator = new Elevator
             {
                 CurrentFloor = 0,
                 Name = nameof(MoveDownAsyncShouldMoveElevatorDownwards)
@@ -106,8 +103,7 @@ namespace ElevatorChallenge.Application.Tests
             var elevatorMover = new ElevatorMover(
                 elevator,
                 _movementLogger.Object,
-                new WaiterService(),
-                null
+                new WaiterService()
             );
 
             cts.Cancel();
@@ -118,18 +114,18 @@ namespace ElevatorChallenge.Application.Tests
         }
 
         public static IEnumerable<object[]> CreateMoveToFloorData =>
-            new List<object[]>()
+            new List<object[]>
             {
                 new object[]
                 {
                     new Elevator(),
-                    new ElevatorRequest() { FromFloor = 0, ToFloor = 5 },
+                    new ElevatorRequest { FromFloor = 0, ToFloor = 5 },
 
                 },
                 new object[]
                 {
-                    new Elevator(){CurrentFloor = 5},
-                    new ElevatorRequest() { FromFloor = 5, ToFloor = 0 },
+                    new Elevator {CurrentFloor = 5},
+                    new ElevatorRequest { FromFloor = 5, ToFloor = 0 },
                 }
             };
 
@@ -140,13 +136,26 @@ namespace ElevatorChallenge.Application.Tests
             var elevatorMover = new ElevatorMover(
                 elevator,
                 _movementLogger.Object,
-                _waiterService.Object,
-                null
+                _waiterService.Object
             );
 
             await elevatorMover.MoveToFloorAsync(request);
 
             Assert.Equal(request.ToFloor, elevator.CurrentFloor);
+        }
+
+        [Fact]
+        public void HasToMoveToAnotherFloorToPickUpPassengerShouldBeTrueIfHasToMove()
+        {
+            var request = new ElevatorRequest() {FromFloor = 5, ToFloor = 0};
+            var elevator = new Elevator() {CurrentFloor = 0};
+            var elevatorMover = new ElevatorMover(
+                elevator,
+                _movementLogger.Object,
+                _waiterService.Object
+            );
+
+            Assert.True(elevatorMover.HasToMoveToAnotherFloorToPickUpPassengerFor(request));
         }
     }
 }
