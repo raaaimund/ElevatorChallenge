@@ -46,7 +46,7 @@ namespace ElevatorChallenge.Commandline
                 {
                     services.AddScoped<ILogMovementService, NetCoreLogMovementService>();
                     services.AddScoped<IWaiterService, WaiterService>();
-                    services.AddScoped<IElevatorMoverFactory, ElevatorMoverFactory>();
+                    services.AddScoped<IElevatorRequestHandlerFactory, ElevatorRequestHandlerFactory>();
                     services.AddSingleton<IRequestQueue<ElevatorRequest>, ElevatorRequestQueueUsingChannel>();
                     services.AddSingleton<ElevatorSystem, ElevatorSystemWithTestData>();
                     services.AddHostedService<ElevatorSystemHostedService>();

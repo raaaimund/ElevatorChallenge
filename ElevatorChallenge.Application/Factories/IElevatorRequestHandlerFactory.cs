@@ -2,8 +2,8 @@
 
 namespace ElevatorChallenge.Application.Factories
 {
-    public interface IElevatorMoverFactory
+    public interface IElevatorRequestHandlerFactory
     {
-        ElevatorMover Create(Elevator elevator);
+        ElevatorRequestHandler Create(Elevator elevator);
     }
 }

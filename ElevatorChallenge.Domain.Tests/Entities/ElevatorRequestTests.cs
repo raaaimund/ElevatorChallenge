@@ -11,7 +11,7 @@ namespace ElevatorChallenge.Domain.Tests.Entities
         [InlineData(15, 0, Direction.Down)]
         public void DirectionShouldBeCorrect(int fromFloor, int toFloor, Direction expected)
         {
-            var actual = new ElevatorRequest() { FromFloor = fromFloor, ToFloor = toFloor };
+            var actual = new ElevatorRequest { FromFloor = fromFloor, ToFloor = toFloor };
 
             Assert.Equal(expected, actual.Direction);
         }

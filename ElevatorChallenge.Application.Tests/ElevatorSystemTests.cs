@@ -39,7 +39,7 @@ namespace ElevatorChallenge.Application.Tests
             );
             var cancellationTokenSource = new CancellationTokenSource();
 
-            elevatorSystem.AddRequest(new Domain.Entities.ElevatorRequest());
+            elevatorSystem.AddRequest(new ElevatorRequest());
             cancellationTokenSource.Cancel();
 
             await Assert.ThrowsAsync<OperationCanceledException>(
@@ -53,13 +53,13 @@ namespace ElevatorChallenge.Application.Tests
         {
             var queue = new ElevatorRequestQueueUsingChannel();
             var elevatorSystem = new ElevatorSystem(
-                new ElevatorMoverFactory(null, null, queue),
+                new ElevatorRequestHandlerFactory(null, null, queue),
                 new WaiterService(),
                 queue
                 );
             var cancellationTokenSource = new CancellationTokenSource();
 
-            elevatorSystem.AddElevator(new Domain.Entities.Elevator());
+            elevatorSystem.AddElevator(new Elevator());
             cancellationTokenSource.Cancel();
 
             await Assert.ThrowsAsync<OperationCanceledException>(
@@ -74,7 +74,7 @@ namespace ElevatorChallenge.Application.Tests
             var queue = new ElevatorRequestQueueUsingChannel();
             var actualRequests = new List<ElevatorRequest>();
             var elevatorSystem = new ElevatorSystem(
-                new ElevatorMoverFactory(null, null, queue),
+                new ElevatorRequestHandlerFactory(null, null, queue),
                 new WaiterService(),
                 queue
             );
