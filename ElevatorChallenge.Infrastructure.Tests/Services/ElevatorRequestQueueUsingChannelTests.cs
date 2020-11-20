@@ -23,7 +23,7 @@ namespace ElevatorChallenge.Infrastructure.Tests.Services
             Assert.Single(actualRequests);
         }
 
-        [Fact(Timeout = 10)]
+        [Fact(Timeout = 100)]
         public async Task CompletionShouldWaitUntilComplete()
         {
             var queue = new ElevatorRequestQueueUsingChannel();
