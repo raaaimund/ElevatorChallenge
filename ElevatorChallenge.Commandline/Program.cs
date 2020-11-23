@@ -12,11 +12,11 @@ using ElevatorChallenge.Infrastructure.Factories;
 
 namespace ElevatorChallenge.Commandline
 {
-    class Program
+    internal class Program
     {
         private static readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             Console.CancelKeyPress += Console_CancelKeyPress;
 
@@ -29,13 +29,10 @@ namespace ElevatorChallenge.Commandline
             {
                 aggregatedExceptions.Handle((ex) =>
                 {
-                    if (ex is OperationCanceledException)
-                    {
-                        Console.WriteLine("Cancelled ... bye.");
-                        return true;
-                    }
+                    if (ex is not OperationCanceledException) return false;
+                    Console.WriteLine("Cancelled ... bye.");
+                    return true;
 
-                    return false;
                 });
             }
         }
@@ -44,18 +41,17 @@ namespace ElevatorChallenge.Commandline
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddScoped<ILogMovementService, NetCoreLogMovementService>();
-                    services.AddScoped<IWaiterService, WaiterService>();
-                    services.AddScoped<IElevatorRequestHandlerFactory, ElevatorRequestHandlerFactory>();
+                    services.AddTransient<ILogMovementService, NetCoreLogMovementService>();
+                    services.AddTransient<IWaiterService, WaiterService>();
+                    services.AddTransient<IElevatorRequestHandlerFactory, ElevatorRequestHandlerFactory>();
                     services.AddSingleton<IRequestQueue<ElevatorRequest>, ElevatorRequestQueueUsingChannel>();
-                    services.AddSingleton<ElevatorSystem, ElevatorSystemWithTestData>();
+                    services.AddSingleton<IElevatorSystem, ElevatorSystemWithTestData>();
                     services.AddHostedService<ElevatorSystemHostedService>();
                 });
 
         private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs args)
         {
             CancellationTokenSource.Cancel();
-            CancellationTokenSource?.Dispose();
         }
     }
 }
