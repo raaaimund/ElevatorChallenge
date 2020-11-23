@@ -1,6 +1,5 @@
 ﻿using ElevatorChallenge.Application.Services;
 using ElevatorChallenge.Domain.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -9,7 +8,7 @@ using ElevatorChallenge.Application.Factories;
 
 namespace ElevatorChallenge.Application
 {
-    public class ElevatorSystem : IDisposable
+    public class ElevatorSystem : IElevatorSystem
     {
         private readonly ICollection<Task> _workers;
         private readonly ICollection<ElevatorRequestHandler> _requestsHandler;

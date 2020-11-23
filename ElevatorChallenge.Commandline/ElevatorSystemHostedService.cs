@@ -3,50 +3,47 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using ElevatorChallenge.Application.Services;
 
 namespace ElevatorChallenge.Commandline
 {
     public class ElevatorSystemHostedService : IHostedService, IDisposable
     {
-        private readonly ElevatorSystem _elevatorSystem;
+        private readonly IElevatorSystem _elevatorSystem;
+        private readonly IWaiterService _waiterService;
 
         private CancellationTokenSource _cancellationTokenSource;
         private Task _currentlyExecutingTasks;
 
-        public ElevatorSystemHostedService(ElevatorSystem elevatorSystem)
+        public ElevatorSystemHostedService(IElevatorSystem elevatorSystem, IWaiterService waiterService)
         {
             _elevatorSystem = elevatorSystem;
+            _waiterService = waiterService;
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public Task StartAsync(CancellationToken cancellationToken = default)
         {
             _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-            _currentlyExecutingTasks = ExecuteAsync(_cancellationTokenSource.Token);
-            return _currentlyExecutingTasks.IsCompleted 
-                ? _currentlyExecutingTasks 
+            _currentlyExecutingTasks = _elevatorSystem.StartAsync(_cancellationTokenSource.Token);
+            return _currentlyExecutingTasks.IsCompleted
+                ? _currentlyExecutingTasks
                 : Task.CompletedTask;
         }
 
-        public async Task StopAsync(CancellationToken cancellationToken)
+        public async Task StopAsync(CancellationToken cancellationToken = default)
         {
             if (_currentlyExecutingTasks == null) return;
             _cancellationTokenSource.Cancel();
             await Task.WhenAny(
                 _currentlyExecutingTasks,
-                InfiniteRunningTaskUntilCancelledWith(cancellationToken)
+                _waiterService.WaitUntilCanceled(_cancellationTokenSource.Token)
             );
             cancellationToken.ThrowIfCancellationRequested();
         }
 
-        private async Task ExecuteAsync(CancellationToken cancellationToken) =>
-            await _elevatorSystem.StartAsync(cancellationToken);
-
-        private Task InfiniteRunningTaskUntilCancelledWith(CancellationToken cancellationToken) =>
-            Task.Delay(-1, cancellationToken);
-
         public void Dispose()
         {
-            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource.Cancel();
         }
     }
 }
