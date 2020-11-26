@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorChallenge.Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorChallenge.Commandline.Tests", "ElevatorChallenge.Commandline.Tests\ElevatorChallenge.Commandline.Tests.csproj", "{5582DDEB-2402-46ED-8CDA-55091A8ED9EC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorChallenge.Specs", "ElevatorChallenge.Specs\ElevatorChallenge.Specs.csproj", "{8CBAF57E-EB36-4208-A921-3E420DD8AD33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{5582DDEB-2402-46ED-8CDA-55091A8ED9EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5582DDEB-2402-46ED-8CDA-55091A8ED9EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5582DDEB-2402-46ED-8CDA-55091A8ED9EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CBAF57E-EB36-4208-A921-3E420DD8AD33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CBAF57E-EB36-4208-A921-3E420DD8AD33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CBAF57E-EB36-4208-A921-3E420DD8AD33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CBAF57E-EB36-4208-A921-3E420DD8AD33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
